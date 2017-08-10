@@ -1,6 +1,6 @@
 <?php 
 /**
- * 友情链接
+ * 留言页面
  */
 if(!defined('EMLOG_ROOT')) {exit('error!');} 
 ?>
@@ -8,19 +8,14 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
   <div class="content-wrap">
     <div class="content container-tw">
         <header class="article-header">
-            <h1 class="title-tw"><i class="fa fa-link"></i> <?php echo $log_title; ?></h1>
+            <h1 class="title-tw"><i class="fa fa-comment"></i> <?php echo $log_title; ?></h1>
         </header>
 		<section class="context">
 			<?php echo unCompress(ishascomment($log_content,$logid)); ?>
-			<div class="row blogroll">
-				<?php 
-			global $CACHE;
-			$link_cache = $CACHE->readCache('link');
-			foreach($link_cache as $value): ?>
-				<div class="col-md-2 col-sm-4 col-xs-6 linkli"><a href="<?php echo $value['url']; ?>" title="<?php echo $value['des']; ?>" target="_blank"><img alt="link" src="https://pjax.cn/api/ico/?url=<?php echo $value['url']; ?>" onerror="javascript:this.src='../favicon.ico';"><?php echo $value['link']; ?></a></div>
-				<?php endforeach; ?>
-			</div>
 		</section>
+		<ul class="readers-list">
+			<?php echo guest(100); ?>
+		</ul>
 	<!-- 评论开始 -->
 	<?php if($allow_remark == 'y'): ?>
 	<article class="span12" id="comments">
