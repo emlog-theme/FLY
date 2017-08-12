@@ -402,12 +402,12 @@ function pic_thumb($content){
 }
 //获取附件第一张图片
 function getThumbnail($blogid){
-    $db = MySql::getInstance();
+    $db = Database::getInstance();
     $sql = "SELECT * FROM ".DB_PREFIX."attachment WHERE blogid=".$blogid." AND (`filepath` LIKE '%jpg' OR `filepath` LIKE '%gif' OR `filepath` LIKE '%png') ORDER BY `aid` ASC LIMIT 0,1";
     //die($sql);
     $imgs = $db->query($sql);
     $img_path = "";
-	if(mysql_num_rows($imgs)){
+	if($db->num_rows($imgs)){
 		while($row = $db->fetch_array($imgs)){
 			 $img_path .= BLOG_URL.substr($row['filepath'],3,strlen($row['filepath']));
 		}
@@ -820,7 +820,7 @@ function echo_levels($comment_author_email,$comment_author_url){
 	}
 	$sql = "SELECT cid as author_count,mail FROM ".DB_PREFIX."comment WHERE mail != '' and mail = $comment_author_email and hide ='n'";
 	$res = $DB->query($sql);
-	$author_count = mysql_num_rows($res);
+	$author_count = $db->num_rows($res);
 	if($author_count>=0 && $author_count<5 && $comment_author_email!=$adminEmail)
 		echo '<a class="vip1" title="VIP等级：初入联盟 LV.1"><i class="pro"></i><i class="level">Lv.1</i></a>';
 	else if($author_count>=5 && $author_count<10 && $comment_author_email!=$adminEmail)
